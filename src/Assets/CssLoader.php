@@ -11,6 +11,7 @@
 
 namespace Venne\Assets;
 
+use Nette\Http\Request;
 use WebLoader\Compiler;
 
 /**
@@ -22,18 +23,25 @@ class CssLoader extends \WebLoader\Nette\CssLoader
 	/** @var string */
 	private $relativeTempPath;
 
+	/** @var Request */
+	private $httpRequest;
 
-	public function __construct(Compiler $compiler, $relativeTempPath)
+
+	public function __construct(Compiler $compiler, $relativeTempPath, Request $httpRequest)
 	{
 		parent::__construct($compiler, '');
 
 		$this->relativeTempPath = $relativeTempPath;
+		$this->httpRequest = $httpRequest;
 	}
 
 
 	public function render()
 	{
-		$this->setTempPath($this->presenter->template->basePath . $this->relativeTempPath);
+		$baseUrl = rtrim($this->httpRequest->getUrl()->getBaseUrl(), '/');
+		$basePath = preg_replace('#https?://[^/]+#A', '', $baseUrl);
+
+		$this->setTempPath($basePath . $this->relativeTempPath);
 
 		$this->setMedia(NULL);
 		$this->setType('text/css');
