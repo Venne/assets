@@ -24,9 +24,11 @@ class AssetsExtension extends CompilerExtension
 		$container = $this->getContainerBuilder();
 
 		// macros
-		$args = array('@self', $this->getContainerBuilder()->expand('%wwwDir%'), '@Venne\\Packages\\PathResolver');
+		$args = array('@self', $this->getContainerBuilder()->expand('%wwwDir%'));
 		if (count($this->compiler->getExtensions('Venne\Packages\DI\PackagesExtension'))) {
 			$args[] = '@Venne\\Packages\\PathResolver';
+		} else {
+			$args[] = NULL;
 		}
 
 		$container->getDefinition('nette.latte')
@@ -66,8 +68,7 @@ class AssetsExtension extends CompilerExtension
 
 		$container->addDefinition($this->prefix('jsLoaderFactory'))
 			->setClass('Venne\Assets\JavaScriptLoader', array($this->prefix('@jsCompiler'), '/cache'))
-			->setImplement('Venne\Assets\IJavaScriptLoaderFactory')
-			->setAutowired(FALSE);
+			->setImplement('Venne\Assets\IJavaScriptLoaderFactory');
 
 
 		// filters
