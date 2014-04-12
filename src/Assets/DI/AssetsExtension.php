@@ -24,9 +24,14 @@ class AssetsExtension extends CompilerExtension
 		$container = $this->getContainerBuilder();
 
 		// macros
+		$args = array('@self', $this->getContainerBuilder()->expand('%wwwDir%'), '@Venne\\Packages\\PathResolver');
+		if (count($this->compiler->getExtensions('Venne\Packages\DI\PackagesExtension'))) {
+			$args[] = '@Venne\\Packages\\PathResolver';
+		}
+
 		$container->getDefinition('nette.latte')
-			->addSetup('Venne\Assets\Macros\CssMacro::install(?->compiler, ?, ?)', array('@self', '@Venne\\Packages\\PathResolver', $this->getContainerBuilder()->expand('%wwwDir%')))
-			->addSetup('Venne\Assets\Macros\JsMacro::install(?->compiler, ?, ?)', array('@self', '@Venne\\Packages\\PathResolver', $this->getContainerBuilder()->expand('%wwwDir%')));
+			->addSetup('Venne\Assets\Macros\CssMacro::install(?->compiler, ?, ?)', $args)
+			->addSetup('Venne\Assets\Macros\JsMacro::install(?->compiler, ?, ?)', $args);
 
 
 		// collections

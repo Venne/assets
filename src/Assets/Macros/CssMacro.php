@@ -41,7 +41,7 @@ class CssMacro extends \Nette\Latte\Macros\MacroSet
 	/**
 	 * @param PathResolver $pathResolver
 	 */
-	public function setPathResolver(PathResolver $pathResolver)
+	public function setPathResolver(PathResolver $pathResolver = NULL)
 	{
 		$this->pathResolver = $pathResolver;
 	}
@@ -52,13 +52,12 @@ class CssMacro extends \Nette\Latte\Macros\MacroSet
 		$files = array();
 		$pos = 0;
 		while ($file = $node->tokenizer->fetchWord()) {
-
 			if (strpos($file, '=>') !== FALSE) {
 				$node->tokenizer->position = $pos;
 				break;
 			}
 
-			$files[] = $this->wwwDir . '/' . $this->pathResolver->expandResource($file);
+			$files[] = $this->wwwDir . '/' . ($this->pathResolver ? $this->pathResolver->expandResource($file) : $file);
 			$pos = $node->tokenizer->position;
 		}
 
@@ -71,7 +70,7 @@ class CssMacro extends \Nette\Latte\Macros\MacroSet
 	}
 
 
-	public static function install(Compiler $compiler, PathResolver $pathResolver = NULL, $wwwDir = NULL)
+	public static function install(Compiler $compiler, $wwwDir = NULL, PathResolver $pathResolver = NULL)
 	{
 		$me = new static($compiler);
 		$me->setWwwDir($wwwDir);
