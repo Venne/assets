@@ -46,9 +46,7 @@ class JavaScriptLoader extends \WebLoader\Nette\JavaScriptLoader
 		$args = array();
 		if (func_num_args() > 0) {
 			foreach (func_get_args() as $arg) {
-				if (is_array($arg) && isset($arg['config'])) {
-
-				} else {
+				if (!is_array($arg) || !isset($arg['config'])) {
 					$args[] = $arg;
 				}
 			}

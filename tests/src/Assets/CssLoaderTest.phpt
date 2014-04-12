@@ -48,11 +48,19 @@ class CssLoaderTest extends TestCase
 		};
 
 		Assert::match('<link rel="stylesheet" type="text/css" href="/webtmp/cssloader-%h%.css?%d%">', $fn());
+		Assert::match('<link rel="stylesheet" type="text/css" href="/webtmp/cssloader-%h%-foo.css?%d%">', $fn('css/foo.css'));
 		Assert::match('<link rel="stylesheet" type="text/css" media="mediatext" href="/webtmp/cssloader-%h%.css?%d%">', $fn(array('config' => array('media' => 'mediatext'))));
 		Assert::match('<link rel="stylesheet" type="typetext" href="/webtmp/cssloader-%h%.css?%d%">', $fn(array('config' => array('type' => 'typetext'))));
 		Assert::match('<link rel="stylesheet" type="text/css" title="titletext" href="/webtmp/cssloader-%h%.css?%d%">', $fn(array('config' => array('title' => 'titletext'))));
 		Assert::match('<link rel="stylesheet alternate" type="text/css" href="/webtmp/cssloader-%h%.css?%d%">', $fn(array('config' => array('alternate' => 'alternate'))));
 		Assert::match('<link rel="stylesheet alternate" type="typetext" media="mediatext" title="titletext" href="/webtmp/cssloader-%h%.css?%d%">', $fn(array('config' => array(
+			'alternate' => 'alternate',
+			'title' => 'titletext',
+			'type' => 'typetext',
+			'media' => 'mediatext'
+		))));
+
+		Assert::match('<link rel="stylesheet alternate" type="typetext" media="mediatext" title="titletext" href="/webtmp/cssloader-%h%-foo.css?%d%">', $fn('css/foo.css', array('config' => array(
 			'alternate' => 'alternate',
 			'title' => 'titletext',
 			'type' => 'typetext',

@@ -41,6 +41,10 @@ class CssMacrosTest extends TestCase
   \'title\' => \'texttitle\',
   \'alternate\' => \'alternate\',
 ))); ?>', $compiler->expandMacro('css', 'test media=>textmedia, type=>texttype, title=>texttitle, alternate=>alternate')->openingCode);
+
+		Assert::exception(function () use ($compiler) {
+			$compiler->expandMacro('css', '')->openingCode;
+		}, 'Nette\Latte\CompileException', 'Missing file name in {css}');
 	}
 
 }

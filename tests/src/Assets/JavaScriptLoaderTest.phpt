@@ -15,9 +15,9 @@ use Nette\Http\Request;
 use Nette\Http\UrlScript;
 use Tester\Assert;
 use Tester\TestCase;
+use Venne\Assets\JavaScriptLoader;
 use WebLoader\Compiler;
 use WebLoader\FileCollection;
-use WebLoader\Nette\JavaScriptLoader;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -48,6 +48,7 @@ class JavaScriptLoaderTest extends TestCase
 		};
 
 		Assert::match('<script type="text/javascript" src="/webtmp/jsloader-%h%.js?%d%"></script>', $fn());
+		Assert::match('<script type="text/javascript" src="/webtmp/jsloader-%h%-foo.js?%d%"></script>', $fn('js/foo.js'));
 	}
 
 }

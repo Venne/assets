@@ -50,15 +50,8 @@ class JsMacro extends \Nette\Latte\Macros\MacroSet
 	public function filter(\Nette\Latte\MacroNode $node, PhpWriter $writer)
 	{
 		$files = array();
-		$pos = 0;
 		while ($file = $node->tokenizer->fetchWord()) {
-			if (strpos($file, '=>') !== FALSE) {
-				$node->tokenizer->position = $pos;
-				break;
-			}
-
 			$files[] = $this->wwwDir . '/' . ($this->pathResolver ? $this->pathResolver->expandResource($file) : $file);
-			$pos = $node->tokenizer->position;
 		}
 
 		if (!count($files)) {

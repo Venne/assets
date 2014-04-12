@@ -30,6 +30,10 @@ class JsMacrosTest extends TestCase
 
 		Assert::same( '<?php $_control[\'js\']->render(\'/test\', array(\'config\' => array (
 ))); ?>',  $compiler->expandMacro('js', 'test')->openingCode );
+
+		Assert::exception(function () use ($compiler) {
+			$compiler->expandMacro('js', '')->openingCode;
+		}, 'Nette\Latte\CompileException', 'Missing file name in {js}');
 	}
 
 }
