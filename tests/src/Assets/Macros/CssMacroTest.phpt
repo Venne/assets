@@ -25,7 +25,7 @@ class CssMacrosTest extends TestCase
 
 	public function testExpand()
 	{
-		$compiler = new \Nette\Latte\Compiler;
+		$compiler = new \Latte\Compiler;
 		CssMacro::install($compiler);
 
 		Assert::same('<?php $_control[\'css\']->render(\'/test\', array(\'config\' => array (

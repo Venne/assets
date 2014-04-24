@@ -16,7 +16,7 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"nette/nette": "~2.1.0",
+		"nette/nette": "~2.2.0@dev",
 		"janmarek/webloader": "~2.2.0"
 	},
 	"require-dev": {
@@ -25,6 +25,7 @@
 	"suggest": {
 		"venne/packages": ""
 	},
+	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
 			"Venne\\Assets\\": "src/Assets/"

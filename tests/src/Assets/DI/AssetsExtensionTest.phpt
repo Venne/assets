@@ -90,14 +90,14 @@ class AssetsExtensionTest extends TestCase
 		$latteEngine = $container->createService('nette.latte');
 
 		try {
-			Assert::type('Nette\Latte\MacroNode', $latteEngine->compiler->expandMacro('js', 'foo.js'));
-			Assert::type('Nette\Latte\MacroNode', $latteEngine->compiler->expandMacro('css', 'foo.css'));
-		} catch (Nette\Latte\CompileException $e) {
+			Assert::type('Latte\MacroNode', $latteEngine->getCompiler()->expandMacro('js', 'foo.js'));
+			Assert::type('Latte\MacroNode', $latteEngine->getCompiler()->expandMacro('css', 'foo.css'));
+		} catch (\Latte\CompileException $e) {
 			Assert::fail($e->getMessage());
 		}
 
 		Assert::same('<?php $_control[\'js\']->render(\'' . __DIR__ . '/@test/foo.js\', array(\'config\' => array (
-))); ?>', $latteEngine->compiler->expandMacro('js', '@test/foo.js')->openingCode);
+))); ?>', $latteEngine->getCompiler()->expandMacro('js', '@test/foo.js')->openingCode);
 	}
 
 
@@ -109,7 +109,7 @@ class AssetsExtensionTest extends TestCase
 		$latteEngine = $container->createService('nette.latte');
 
 		Assert::same('<?php $_control[\'js\']->render(\'' . __DIR__ . '/%@test.foo/foo.js%\', array(\'config\' => array (
-))); ?>', $latteEngine->compiler->expandMacro('js', '@test.foo/foo.js')->openingCode);
+))); ?>', $latteEngine->getCompiler()->expandMacro('js', '@test.foo/foo.js')->openingCode);
 	}
 
 }

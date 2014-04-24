@@ -25,7 +25,7 @@ class JsMacrosTest extends TestCase
 
 	public function testExpand()
 	{
-		$compiler = new \Nette\Latte\Compiler;
+		$compiler = new \Latte\Compiler;
 		JsMacro::install($compiler);
 
 		Assert::same( '<?php $_control[\'js\']->render(\'/test\', array(\'config\' => array (

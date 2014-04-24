@@ -11,15 +11,17 @@
 
 namespace Venne\Assets\Macros;
 
-use Nette\Latte\CompileException;
-use Nette\Latte\Compiler;
-use Nette\Latte\PhpWriter;
+use Latte\MacroNode;
+use Latte\Macros\MacroSet;
+use Latte\CompileException;
+use Latte\Compiler;
+use Latte\PhpWriter;
 use Venne\Packages\PathResolver;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class JsMacro extends \Nette\Latte\Macros\MacroSet
+class JsMacro extends MacroSet
 {
 
 	/** @var string */
@@ -47,7 +49,7 @@ class JsMacro extends \Nette\Latte\Macros\MacroSet
 	}
 
 
-	public function filter(\Nette\Latte\MacroNode $node, PhpWriter $writer)
+	public function filter(MacroNode $node, PhpWriter $writer)
 	{
 		$files = array();
 		while ($file = $node->tokenizer->fetchWord()) {
