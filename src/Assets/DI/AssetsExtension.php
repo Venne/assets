@@ -31,9 +31,9 @@ class AssetsExtension extends CompilerExtension
 			$args[] = NULL;
 		}
 
-		$container->getDefinition('nette.latte')
-			->addSetup('Venne\Assets\Macros\CssMacro::install(?->getCompiler(), ?, ?)', $args)
-			->addSetup('Venne\Assets\Macros\JsMacro::install(?->getCompiler(), ?, ?)', $args);
+		$container->getDefinition('nette.latteFactory')
+			->addSetup('?->onCompile[] = function($engine) { Venne\Assets\Macros\CssMacro::install($engine->getCompiler(), ?, ?); }', $args)
+			->addSetup('?->onCompile[] = function($engine) { Venne\Assets\Macros\JsMacro::install($engine->getCompiler(), ?, ?); }', $args);
 
 
 		// collections

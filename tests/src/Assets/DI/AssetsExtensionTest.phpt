@@ -87,7 +87,8 @@ class AssetsExtensionTest extends TestCase
 		Assert::type('Venne\Assets\IJavaScriptLoaderFactory', $container->getService('assets.jsLoaderFactory'));
 
 		/** @var Nette\Latte\Engine $latteEngine */
-		$latteEngine = $container->createService('nette.latte');
+		$latteEngine = $container->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory')->create();
+		$latteEngine->compile(__DIR__ . '/foo.latte');
 
 		try {
 			Assert::type('Latte\MacroNode', $latteEngine->getCompiler()->expandMacro('js', 'foo.js'));
@@ -106,7 +107,8 @@ class AssetsExtensionTest extends TestCase
 		$container = $this->createContainer(TRUE);
 
 		/** @var Nette\Latte\Engine $latteEngine */
-		$latteEngine = $container->createService('nette.latte');
+		$latteEngine = $container->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory')->create();
+		$latteEngine->compile(__DIR__ . '/foo.latte');
 
 		Assert::same('<?php $_control[\'js\']->render(\'' . __DIR__ . '/%@test.foo/foo.js%\', array(\'config\' => array (
 ))); ?>', $latteEngine->getCompiler()->expandMacro('js', '@test.foo/foo.js')->openingCode);
