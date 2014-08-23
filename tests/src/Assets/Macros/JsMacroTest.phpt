@@ -12,7 +12,6 @@
 namespace VenneTests\Assets\Macros;
 
 use Tester\Assert;
-use Tester\TestCase;
 use Venne\Assets\Macros\JsMacro;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -20,7 +19,7 @@ require __DIR__ . '/../../bootstrap.php';
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class JsMacrosTest extends TestCase
+class JsMacrosTest extends \Tester\TestCase
 {
 
 	public function testExpand()
@@ -28,8 +27,8 @@ class JsMacrosTest extends TestCase
 		$compiler = new \Latte\Compiler;
 		JsMacro::install($compiler);
 
-		Assert::same( '<?php $_control[\'js\']->render(\'/test\', array(\'config\' => array (
-))); ?>',  $compiler->expandMacro('js', 'test')->openingCode );
+		Assert::same('<?php $_control[\'js\']->render(\'/test\', array(\'config\' => array (
+))); ?>', $compiler->expandMacro('js', 'test')->openingCode);
 
 		Assert::exception(function () use ($compiler) {
 			$compiler->expandMacro('js', '')->openingCode;

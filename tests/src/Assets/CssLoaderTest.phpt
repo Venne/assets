@@ -11,10 +11,9 @@
 
 namespace VenneTests\Assets;
 
-use Nette\Http\Request;
+use Nette\Http\Request as NetteHttpRequest;
 use Nette\Http\UrlScript;
 use Tester\Assert;
-use Tester\TestCase;
 use Venne\Assets\CssLoader;
 use WebLoader\Compiler;
 use WebLoader\FileCollection;
@@ -24,12 +23,12 @@ require __DIR__ . '/../bootstrap.php';
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CssLoaderTest extends TestCase
+class CssLoaderTest extends \Tester\TestCase
 {
 
 	public function testRender()
 	{
-		$httpRequest = new Request(new UrlScript('/foo/bar'));
+		$httpRequest = new NetteHttpRequest(new UrlScript('/foo/bar'));
 		$files = new FileCollection(TEMP_DIR . '/css');
 		$files->addFiles(array(
 			__DIR__ . '/css/foo.css',
@@ -44,6 +43,7 @@ class CssLoaderTest extends TestCase
 		$fn = function () use ($control) {
 			ob_start();
 			call_user_func_array(array($control, 'render'), func_get_args());
+
 			return ob_get_clean();
 		};
 

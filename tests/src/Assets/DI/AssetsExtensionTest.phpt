@@ -13,9 +13,7 @@ namespace Venne\Packages\DI;
 
 require __DIR__ . '/../../bootstrap.php';
 
-use Nette\DI\CompilerExtension;
-
-class PackagesExtension extends CompilerExtension
+class PackagesExtension extends \Nette\DI\CompilerExtension
 {
 
 	public function loadConfiguration()
@@ -40,44 +38,43 @@ class PathResolver
 
 }
 
-
 namespace VenneTests\Assets\DI;
 
-use Nette;
+use Nette\Configurator;
+use Nette\Utils\Strings;
 use Tester\Assert;
-use Tester\TestCase;
 use Venne\Assets\DI\AssetsExtension;
 use Venne\Packages\DI\PackagesExtension;
+use Nette\DI\Compiler;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class AssetsExtensionTest extends TestCase
+class AssetsExtensionTest extends \Tester\TestCase
 {
 
 	/**
 	 * @param bool $loadPackagesExtension
 	 * @return \SystemContainer|Nette\DI\Container
 	 */
-	public function createContainer($loadPackagesExtension = FALSE)
+	public function createContainer($loadPackagesExtension = false)
 	{
-		$configurator = new Nette\Configurator();
+		$configurator = new Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addParameters(array('wwwDir' => __DIR__, 'container' => array('class' => 'SystemContainer_' . md5(Nette\Utils\Strings::random()))));
+		$configurator->addParameters(array('wwwDir' => __DIR__, 'container' => array('class' => 'SystemContainer_' . md5(Strings::random()))));
 
 		if ($loadPackagesExtension) {
-			$configurator->onCompile[] = function ($configurator, Nette\DI\Compiler $compiler) {
-				$compiler->addExtension('packages', new PackagesExtension);
+			$configurator->onCompile[] = function (Configurator $configurator, Compiler $compiler) {
+				$compiler->addExtension('packages', new PackagesExtension());
 			};
 		}
 
-		$configurator->onCompile[] = function ($configurator, Nette\DI\Compiler $compiler) {
-			$compiler->addExtension('assets', new AssetsExtension);
+		$configurator->onCompile[] = function (Configurator $configurator, Compiler $compiler) {
+			$compiler->addExtension('assets', new AssetsExtension());
 		};
 
 		return $configurator->createContainer();
 	}
-
 
 	public function testRegisterTypes()
 	{
@@ -101,10 +98,9 @@ class AssetsExtensionTest extends TestCase
 ))); ?>', $latteEngine->getCompiler()->expandMacro('js', '@test/foo.js')->openingCode);
 	}
 
-
 	public function testRegisterWithPackageExtension()
 	{
-		$container = $this->createContainer(TRUE);
+		$container = $this->createContainer(true);
 
 		/** @var Nette\Latte\Engine $latteEngine */
 		$latteEngine = $container->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory')->create();

@@ -11,25 +11,23 @@
 
 namespace Venne\Assets\Macros;
 
-use Latte\MacroNode;
-use Latte\Macros\MacroSet;
 use Latte\CompileException;
 use Latte\Compiler;
+use Latte\MacroNode;
 use Latte\PhpWriter;
 use Venne\Packages\PathResolver;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CssMacro extends MacroSet
+class CssMacro extends \Latte\Macros\MacroSet
 {
 
 	/** @var string */
 	private $wwwDir;
 
-	/** @var PathResolver */
+	/** @var \Venne\Packages\PathResolver */
 	private $pathResolver;
-
 
 	/**
 	 * @param string $wwwDir
@@ -39,22 +37,17 @@ class CssMacro extends MacroSet
 		$this->wwwDir = $wwwDir;
 	}
 
-
-	/**
-	 * @param PathResolver $pathResolver
-	 */
-	public function setPathResolver(PathResolver $pathResolver = NULL)
+	public function setPathResolver(PathResolver $pathResolver = null)
 	{
 		$this->pathResolver = $pathResolver;
 	}
-
 
 	public function filter(MacroNode $node, PhpWriter $writer)
 	{
 		$files = array();
 		$pos = 0;
 		while ($file = $node->tokenizer->fetchWord()) {
-			if (strpos($file, '=>') !== FALSE) {
+			if (strpos($file, '=>') !== false) {
 				$node->tokenizer->position = $pos;
 				break;
 			}
@@ -64,15 +57,20 @@ class CssMacro extends MacroSet
 		}
 
 		if (!count($files)) {
-			throw new CompileException("Missing file name in {css}");
+			throw new CompileException('Missing file name in {css}');
 		}
 
 		eval('$args = ' . $writer->formatArray() . ';');
-		return ("\$_control['css']->render('" . join('\', \'', $files) . "', array('config' => " . var_export($args, TRUE) . "));");
+
+		return ("\$_control['css']->render('" . join('\', \'', $files) . "', array('config' => " . var_export($args, true) . "));");
 	}
 
-
-	public static function install(Compiler $compiler, $wwwDir = NULL, PathResolver $pathResolver = NULL)
+	/**
+	 * @param \Latte\Compiler $compiler
+	 * @param string|null $wwwDir
+	 * @param \Venne\Assets\Macros\PathResolver|null $pathResolver
+	 */
+	public static function install(Compiler $compiler, $wwwDir = null, PathResolver $pathResolver = null)
 	{
 		$me = new static($compiler);
 		$me->setWwwDir($wwwDir);

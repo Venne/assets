@@ -11,12 +11,10 @@
 
 namespace Venne\Assets\DI;
 
-use Nette\DI\CompilerExtension;
-
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class AssetsExtension extends CompilerExtension
+class AssetsExtension extends \Nette\DI\CompilerExtension
 {
 
 	public function loadConfiguration()
@@ -28,13 +26,12 @@ class AssetsExtension extends CompilerExtension
 		if (count($this->compiler->getExtensions('Venne\Packages\DI\PackagesExtension'))) {
 			$args[] = '@Venne\\Packages\\PathResolver';
 		} else {
-			$args[] = NULL;
+			$args[] = null;
 		}
 
 		$container->getDefinition('nette.latteFactory')
 			->addSetup('?->onCompile[] = function($engine) { Venne\Assets\Macros\CssMacro::install($engine->getCompiler(), ?, ?); }', $args)
 			->addSetup('?->onCompile[] = function($engine) { Venne\Assets\Macros\JsMacro::install($engine->getCompiler(), ?, ?); }', $args);
-
 
 		// collections
 		$container->addDefinition($this->prefix('cssFileCollection'))
@@ -43,7 +40,6 @@ class AssetsExtension extends CompilerExtension
 		$container->addDefinition($this->prefix('jsFileCollection'))
 			->setClass('Venne\Assets\JsFileCollection');
 
-
 		// compilers
 		$container->addDefinition($this->prefix('cssCompiler'))
 			->setClass('WebLoader\Compiler')
@@ -51,15 +47,14 @@ class AssetsExtension extends CompilerExtension
 			->addSetup('$service->addFileFilter(?)', array($this->prefix('@cssUrlsFilter')))
 			->addSetup('setCheckLastModified', array($this->containerBuilder->expand('%debugMode%')))
 			->addSetup('setJoinFiles', array(!$container->parameters['debugMode']))
-			->setAutowired(FALSE);
+			->setAutowired(false);
 
 		$container->addDefinition($this->prefix('jsCompiler'))
 			->setClass('WebLoader\Compiler')
 			->setFactory('WebLoader\Compiler::createJsCompiler', array($this->prefix('@jsFileCollection'), $this->containerBuilder->expand('%wwwDir%/cache')))
 			->addSetup('setCheckLastModified', array($this->containerBuilder->expand($this->containerBuilder->expand('%debugMode%'))))
 			->addSetup('setJoinFiles', array(!$container->parameters['debugMode']))
-			->setAutowired(FALSE);
-
+			->setAutowired(false);
 
 		// loaders
 		$container->addDefinition($this->prefix('cssLoaderFactory'))
@@ -69,7 +64,6 @@ class AssetsExtension extends CompilerExtension
 		$container->addDefinition($this->prefix('jsLoaderFactory'))
 			->setClass('Venne\Assets\JavaScriptLoader', array($this->prefix('@jsCompiler'), '/cache'))
 			->setImplement('Venne\Assets\IJavaScriptLoaderFactory');
-
 
 		// filters
 		$container->addDefinition($this->prefix('cssUrlsFilter'))

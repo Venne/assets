@@ -12,7 +12,6 @@
 namespace VenneTests\Assets\Macros;
 
 use Tester\Assert;
-use Tester\TestCase;
 use Venne\Assets\Macros\CssMacro;
 
 require __DIR__ . '/../../bootstrap.php';
@@ -20,7 +19,7 @@ require __DIR__ . '/../../bootstrap.php';
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CssMacrosTest extends TestCase
+class CssMacrosTest extends \Tester\TestCase
 {
 
 	public function testExpand()

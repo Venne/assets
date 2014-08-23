@@ -11,12 +11,10 @@
 
 namespace Venne\Assets;
 
-use WebLoader\FileCollection;
-
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CssFileCollection extends FileCollection
+class CssFileCollection extends \WebLoader\FileCollection
 {
 
 }

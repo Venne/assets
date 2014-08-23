@@ -11,7 +11,7 @@
 
 namespace Venne\Assets;
 
-use Nette\Http\Request;
+use Nette\Http\Request as NetteHttpRequest;
 use WebLoader\Compiler;
 
 /**
@@ -23,18 +23,21 @@ class JavaScriptLoader extends \WebLoader\Nette\JavaScriptLoader
 	/** @var string */
 	private $relativeTempPath;
 
-	/** @var Request */
+	/** @var \Nette\Http\Request */
 	private $httpRequest;
 
-
-	public function __construct(Compiler $compiler, $relativeTempPath, Request $httpRequest)
+	/**
+	 * @param \WebLoader\Compiler $compiler
+	 * @param string $relativeTempPath
+	 * @param \Nette\Http\Request $httpRequest
+	 */
+	public function __construct(Compiler $compiler, $relativeTempPath, NetteHttpRequest $httpRequest)
 	{
 		parent::__construct($compiler, '');
 
 		$this->relativeTempPath = $relativeTempPath;
 		$this->httpRequest = $httpRequest;
 	}
-
 
 	public function render()
 	{

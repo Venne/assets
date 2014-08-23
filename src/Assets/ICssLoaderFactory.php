@@ -18,9 +18,9 @@ interface ICssLoaderFactory
 {
 
 	/**
-	 * @return CssLoader
+	 * @return \Venne\Assets\CssLoader
 	 */
-	function create();
+	public function create();
 
 }
 

@@ -18,9 +18,9 @@ interface IJavaScriptLoaderFactory
 {
 
 	/**
-	 * @return JavaScriptLoader
+	 * @return \Venne\Assets\JavaScriptLoader
 	 */
-	function create();
+	public function create();
 
 }
 

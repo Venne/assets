@@ -11,25 +11,23 @@
 
 namespace Venne\Assets\Macros;
 
-use Latte\MacroNode;
-use Latte\Macros\MacroSet;
 use Latte\CompileException;
 use Latte\Compiler;
+use Latte\MacroNode;
 use Latte\PhpWriter;
 use Venne\Packages\PathResolver;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class JsMacro extends MacroSet
+class JsMacro extends \Latte\Macros\MacroSet
 {
 
 	/** @var string */
 	private $wwwDir;
 
-	/** @var PathResolver */
+	/** @var \Venne\Packages\PathResolver */
 	private $pathResolver;
-
 
 	/**
 	 * @param string $wwwDir
@@ -39,15 +37,10 @@ class JsMacro extends MacroSet
 		$this->wwwDir = $wwwDir;
 	}
 
-
-	/**
-	 * @param PathResolver $pathResolver
-	 */
-	public function setPathResolver(PathResolver $pathResolver = NULL)
+	public function setPathResolver(PathResolver $pathResolver = null)
 	{
 		$this->pathResolver = $pathResolver;
 	}
-
 
 	public function filter(MacroNode $node, PhpWriter $writer)
 	{
@@ -57,15 +50,20 @@ class JsMacro extends MacroSet
 		}
 
 		if (!count($files)) {
-			throw new CompileException("Missing file name in {js}");
+			throw new CompileException('Missing file name in {js}');
 		}
 
 		eval('$args = ' . $writer->formatArray() . ';');
-		return ("\$_control['js']->render('" . join('\', \'', $files) . "', array('config' => " . var_export($args, TRUE) . "));");
+
+		return ("\$_control['js']->render('" . join('\', \'', $files) . "', array('config' => " . var_export($args, true) . "));");
 	}
 
-
-	public static function install(Compiler $compiler, $wwwDir = NULL, PathResolver $pathResolver = NULL)
+	/**
+	 * @param \Latte\Compiler $compiler
+	 * @param string|null $wwwDir
+	 * @param \Venne\Packages\PathResolver|null $pathResolver
+	 */
+	public static function install(Compiler $compiler, $wwwDir = null, PathResolver $pathResolver = null)
 	{
 		$me = new static($compiler);
 		$me->setWwwDir($wwwDir);
