@@ -25,7 +25,6 @@
 	"suggest": {
 		"venne/packages": ""
 	},
-	"minimum-stability": "dev",
 	"autoload": {
 		"psr-4": {
 			"Venne\\Assets\\": "src/Assets/"
