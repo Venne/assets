@@ -55,7 +55,7 @@ class JsMacro extends \Latte\Macros\MacroSet
 
 		eval('$args = ' . $writer->formatArray() . ';');
 
-		return ("\$_control['js']->render('" . join('\', \'', $files) . "', array('config' => " . var_export($args, true) . "));");
+		return ('$_control[\'js\']->render(\'' . join('\', \'', $files) . '\', array(\'config\' => ' . var_export($args, true) . '));');
 	}
 
 	/**
@@ -71,4 +71,3 @@ class JsMacro extends \Latte\Macros\MacroSet
 		$me->addMacro('js', array($me, 'filter'));
 	}
 }
-

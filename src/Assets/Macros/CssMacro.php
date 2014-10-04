@@ -62,7 +62,7 @@ class CssMacro extends \Latte\Macros\MacroSet
 
 		eval('$args = ' . $writer->formatArray() . ';');
 
-		return ("\$_control['css']->render('" . join('\', \'', $files) . "', array('config' => " . var_export($args, true) . "));");
+		return ('$_control[\'css\']->render(\'' . join('\', \'', $files) . '\', array(\'config\' => ' . var_export($args, true) . '));');
 	}
 
 	/**
@@ -78,4 +78,3 @@ class CssMacro extends \Latte\Macros\MacroSet
 		$me->addMacro('css', array($me, 'filter'));
 	}
 }
-

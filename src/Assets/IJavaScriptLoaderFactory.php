@@ -23,4 +23,3 @@ interface IJavaScriptLoaderFactory
 	public function create();
 
 }
-

@@ -41,6 +41,7 @@ class PathResolver
 namespace VenneTests\Assets\DI;
 
 use Nette\Configurator;
+use Nette\Utils\Random;
 use Nette\Utils\Strings;
 use Tester\Assert;
 use Venne\Assets\DI\AssetsExtension;
@@ -61,7 +62,7 @@ class AssetsExtensionTest extends \Tester\TestCase
 	{
 		$configurator = new Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
-		$configurator->addParameters(array('wwwDir' => __DIR__, 'container' => array('class' => 'SystemContainer_' . md5(Strings::random()))));
+		$configurator->addParameters(array('wwwDir' => __DIR__, 'container' => array('class' => 'SystemContainer_' . md5(Random::generate()))));
 
 		if ($loadPackagesExtension) {
 			$configurator->onCompile[] = function (Configurator $configurator, Compiler $compiler) {

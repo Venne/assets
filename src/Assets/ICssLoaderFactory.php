@@ -23,4 +23,3 @@ interface ICssLoaderFactory
 	public function create();
 
 }
-

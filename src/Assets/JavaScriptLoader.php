@@ -58,4 +58,3 @@ class JavaScriptLoader extends \WebLoader\Nette\JavaScriptLoader
 		call_user_func_array(array($this, 'parent::render'), $args);
 	}
 }
-
