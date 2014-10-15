@@ -75,4 +75,5 @@ class CssLoader extends \WebLoader\Nette\CssLoader
 
 		call_user_func_array(array($this, 'parent::render'), $args);
 	}
+
 }

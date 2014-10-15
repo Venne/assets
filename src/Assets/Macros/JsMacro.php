@@ -70,4 +70,5 @@ class JsMacro extends \Latte\Macros\MacroSet
 		$me->setPathResolver($pathResolver);
 		$me->addMacro('js', array($me, 'filter'));
 	}
+
 }

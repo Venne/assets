@@ -77,4 +77,5 @@ class CssMacro extends \Latte\Macros\MacroSet
 		$me->setPathResolver($pathResolver);
 		$me->addMacro('css', array($me, 'filter'));
 	}
+
 }
