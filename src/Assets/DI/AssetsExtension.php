@@ -59,11 +59,11 @@ class AssetsExtension extends \Nette\DI\CompilerExtension
 		// loaders
 		$container->addDefinition($this->prefix('cssLoaderFactory'))
 			->setClass('Venne\Assets\CssLoader', array($this->prefix('@cssCompiler'), '/cache'))
-			->setImplement('Venne\Assets\ICssLoaderFactory');
+			->setImplement('Venne\Assets\CssLoaderFactory');
 
 		$container->addDefinition($this->prefix('jsLoaderFactory'))
 			->setClass('Venne\Assets\JavaScriptLoader', array($this->prefix('@jsCompiler'), '/cache'))
-			->setImplement('Venne\Assets\IJavaScriptLoaderFactory');
+			->setImplement('Venne\Assets\JavaScriptLoaderFactory');
 
 		// filters
 		$container->addDefinition($this->prefix('cssUrlsFilter'))

@@ -81,8 +81,8 @@ class AssetsExtensionTest extends \Tester\TestCase
 	{
 		$container = $this->createContainer();
 
-		Assert::type('Venne\Assets\ICssLoaderFactory', $container->getService('assets.cssLoaderFactory'));
-		Assert::type('Venne\Assets\IJavaScriptLoaderFactory', $container->getService('assets.jsLoaderFactory'));
+		Assert::type('Venne\Assets\CssLoaderFactory', $container->getService('assets.cssLoaderFactory'));
+		Assert::type('Venne\Assets\JavaScriptLoaderFactory', $container->getService('assets.jsLoaderFactory'));
 
 		/** @var Nette\Latte\Engine $latteEngine */
 		$latteEngine = $container->getByType('Nette\Bridges\ApplicationLatte\ILatteFactory')->create();

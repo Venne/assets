@@ -14,11 +14,11 @@ namespace Venne\Assets;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-interface ICssLoaderFactory
+interface JavaScriptLoaderFactory
 {
 
 	/**
-	 * @return \Venne\Assets\CssLoader
+	 * @return \Venne\Assets\JavaScriptLoader
 	 */
 	public function create();
 

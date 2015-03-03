@@ -11,6 +11,7 @@
 
 namespace Venne\Assets\Macros;
 
+use Latte;
 use Latte\CompileException;
 use Latte\Compiler;
 use Latte\MacroNode;
@@ -20,7 +21,7 @@ use Venne\Packages\PathResolver;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CssMacro extends \Latte\Macros\MacroSet
+class CssMacro extends Latte\Macros\MacroSet
 {
 
 	/** @var string */
@@ -68,7 +69,7 @@ class CssMacro extends \Latte\Macros\MacroSet
 	/**
 	 * @param \Latte\Compiler $compiler
 	 * @param string|null $wwwDir
-	 * @param \Venne\Assets\Macros\PathResolver|null $pathResolver
+	 * @param \Venne\Packages\PathResolver|null $pathResolver
 	 */
 	public static function install(Compiler $compiler, $wwwDir = null, PathResolver $pathResolver = null)
 	{

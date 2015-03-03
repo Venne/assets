@@ -11,6 +11,7 @@
 
 namespace Venne\Assets\Macros;
 
+use Latte;
 use Latte\CompileException;
 use Latte\Compiler;
 use Latte\MacroNode;
@@ -20,7 +21,7 @@ use Venne\Packages\PathResolver;
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class JsMacro extends \Latte\Macros\MacroSet
+class JsMacro extends Latte\Macros\MacroSet
 {
 
 	/** @var string */

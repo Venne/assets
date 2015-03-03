@@ -15,13 +15,14 @@
 		"issues": "https://github.com/Venne/assets/issues"
 	},
 	"require": {
-		"php": ">=5.4.0",
-		"nette/nette": "~2.2.0@dev",
-		"janmarek/webloader": "~2.2.0"
+		"php": ">=5.5.0",
+		"nette/di": "2.3@dev",
+		"latte/latte": "2.3@dev",
+		"janmarek/webloader": "~2.4.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.2.0",
-		"phing/phing": "~2.8.0",
+		"nette/tester": "~1.3.2",
+		"phing/phing": "~2.10.1",
 		"squizlabs/php_codesniffer": "~1.5.0"
 	},
 	"suggest": {

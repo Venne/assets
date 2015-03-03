@@ -11,13 +11,14 @@
 
 namespace Venne\Assets;
 
-use Nette\Http\Request as NetteHttpRequest;
+use Nette\Http\Request;
+use WebLoader;
 use WebLoader\Compiler;
 
 /**
  * @author Josef Kříž <pepakriz@gmail.com>
  */
-class CssLoader extends \WebLoader\Nette\CssLoader
+class CssLoader extends WebLoader\Nette\CssLoader
 {
 
 	/** @var string */
@@ -31,7 +32,7 @@ class CssLoader extends \WebLoader\Nette\CssLoader
 	 * @param string $relativeTempPath
 	 * @param \Nette\Http\Request $httpRequest
 	 */
-	public function __construct(Compiler $compiler, $relativeTempPath, NetteHttpRequest $httpRequest)
+	public function __construct(Compiler $compiler, $relativeTempPath, Request $httpRequest)
 	{
 		parent::__construct($compiler, '');
 
